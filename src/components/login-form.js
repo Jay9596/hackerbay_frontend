@@ -11,7 +11,10 @@ class LoginForm extends Component {
 
   loginUser(values, props) {
     props.dispatch(
-      submitLogin({ email: values.email, password: values.password })
+      submitLogin({
+        email: values.email,
+        password: values.password
+      })
     );
   }
 
@@ -28,11 +31,21 @@ class LoginForm extends Component {
   }
 
   render() {
-    const { error, submitting, handleSubmit } = this.props;
+    const { submitting, handleSubmit } = this.props;
+    const {
+      login_error,
+      error_message,
+      login_success,
+      logging
+    } = this.props.login;
     return (
       <div>
         <h2>Login Form</h2>
-        <form onSubmit={handleSubmit((values) => {this.loginUser(values, this.props)})}>
+        <form
+          onSubmit={handleSubmit(values => {
+            this.loginUser(values, this.props);
+          })}
+        >
           <Field
             label="Email"
             type="email"
@@ -47,11 +60,16 @@ class LoginForm extends Component {
             name="password"
             placeholder=""
           />
-          {error && <strong>{error}</strong>}
-          <button type="submit" disabled={submitting} onSubmit={this.handleSubmit}>
+          <button
+            type="submit"
+            disabled={submitting || logging}
+            onSubmit={this.handleSubmit}
+          >
             Log In
           </button>
         </form>
+        {login_error && <span> {error_message} </span>}
+        {login_success && <span> Successful login </span>}
       </div>
     );
   }
@@ -70,15 +88,14 @@ const validate = values => {
 LoginForm = reduxForm({
   // a unique name for the form
   form: "login",
-  validate
+  validate,
+  onSubmit: submitLogin
 })(LoginForm);
 
 export default connect(
   state => {
     return {
-      payload: {
-        token: null
-      }
+      login: state.login
     };
   },
   { submitLogin }
