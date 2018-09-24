@@ -75,7 +75,7 @@ class LoginForm extends Component {
   }
 }
 
-const validate = values => {
+export const validate = values => {
   const errors = {};
   if (!values.email) {
     errors.email = "Required";

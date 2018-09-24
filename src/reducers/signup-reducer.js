@@ -17,7 +17,7 @@ export default (
         signup_success: action.payload.signup_success
       };
     case "SIGNING_UP":
-      return { ...state, signing: action.siging };
+      return { ...state, signing: action.signing };
     case "SIGNUP_FAILURE":
       return {
         ...state,
