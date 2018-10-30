@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import {Provider} from 'react-redux';
+import { Provider } from "react-redux";
 // import logo from "./logo.svg";
 import "./App.css";
 
 import { connect } from "react-redux";
 import { defaultFunction } from "./actions";
-import store from './store';
+import store from "./store";
 
 import SignupForm from "./components/sign-up-form";
 import LoginForm from "./components/login-form";
 import SimpleComponent from "./components/simple-component";
+import WebDashboard from "./components/website_dashboard";
 
 class App extends Component {
   componentDidMount() {
@@ -21,30 +22,33 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-      <Router className="App">
-        <div>
-          <h1 className='App-title'>Title Template</h1>
-          <div className="navbar">
-            <ul>
-            <li>
-                <Link to="/" className="active">HOME</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/signup">Sign-up</Link>
-              </li>
-            </ul>
-            <hr />
+        <Router className="App">
+          <div>
+            <h1 className="App-title">Title Template</h1>
+            <div className="navbar">
+              <ul>
+                <li>
+                  <Link to="/" className="active">
+                    HOME
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/signup">Sign-up</Link>
+                </li>
+              </ul>
+              <hr />
+            </div>
+            <Switch>
+              <Route exact path="/" component={SimpleComponent} />
+              <Route path="/signup" component={SignupForm} />
+              <Route path="/login" component={LoginForm} />
+              <Route path="/dashboard" component={WebDashboard} />
+            </Switch>
           </div>
-          <Switch>
-          <Route exact path="/" component={SimpleComponent} />
-          <Route path="/signup" component={SignupForm} />
-          <Route path="/login" component={LoginForm} />
-          </Switch>
-        </div>
-      </Router>
+        </Router>
       </Provider>
     );
   }
