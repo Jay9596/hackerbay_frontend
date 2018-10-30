@@ -1,6 +1,7 @@
 // basic react component starting template
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { submitLogin } from "../actions/login";
 
@@ -69,7 +70,8 @@ class LoginForm extends Component {
           </button>
         </form>
         {login_error && <span> {error_message} </span>}
-        {login_success && <span> Successful login </span>}
+        {/* {login_success && <span> Successful login </span>} */}
+        {login_success && <Redirect to='/dashboard'/>}
       </div>
     );
   }
