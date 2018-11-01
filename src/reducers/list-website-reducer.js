@@ -27,7 +27,7 @@ export default (
       return {
         ...state,
         listError: action.payload.error,
-        listFailure: action.payload.error,
+        listFailure: action.payload.failure,
         listSuccess: action.payload.success,
         listRequest: action.payload.request
       };
